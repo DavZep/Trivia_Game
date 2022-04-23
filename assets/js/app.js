@@ -52,7 +52,7 @@ var game = {
         },
         {
             q:"How much money did the event make or lose that first year?",
-            o:["Made $500,000", "Made $1,000,000", "Lost -$800,000", "Lost -$80,000"],
+            o:["Made $500,000", "Made $1,000,000", "Lost -$850,000", "Lost -$80,000"],
             a: 2,
             image: "./assets/img/burning-money.gif"
 
