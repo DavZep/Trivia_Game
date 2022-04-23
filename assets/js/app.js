@@ -22,7 +22,7 @@ var timerId;
 //possible not needed
 var timeOutId;
 
-let correctSound = new Audio("./assets/sound/correct.mp3");
+let correctSound = new Audio("./assets/sound/guitar_fast_solo.mp3");
 correctSound.volume = 0.1;
 
 let wrongSound = new Audio("./assets/sound/wrong.mp3");
@@ -35,14 +35,17 @@ resetSound.volume = 0.1;
 let endSound = new Audio("./assets/sound/large_crowd_outdoor_cheering_clapping.mp3");
 endSound.volume = 0.1;
 
+let booSound = new Audio("./assets/sound/crowd_boo.mp3");
+booSound.volume = 0.1;
+
 
 //game dictionary (object) hold everything relevant to our trivia game
 var game = {
     currentQuestion: 0,
     correctQuestions: 0,
     incorrectQuestions: 0,
-    //update time to 20 secs
-    time: 20,
+    //update time to 25 secs
+    time: 25,
     questions: [
         {
             q: "In what year did Coachella first start?",
@@ -51,7 +54,7 @@ var game = {
             image: "./assets/img/coachella-lineup.jpg"
         },
         {
-            q:"How much money did the event make or lose that first year?",
+            q:'How much money did the event make or lose that first year in "99"?',
             o:["Made $500,000", "Made $1,000,000", "Lost -$850,000", "Lost -$80,000"],
             a: 2,
             image: "./assets/img/burning-money.gif"
@@ -123,7 +126,7 @@ var game = {
         //-add instructions and buttons to the game container
         //-create instructions for the game container
         var h3 = document.createElement("h3");
-        h3.textContent = "Test your knowledge of Trivia about the Coachella Music Festival. You have 20 seconds to answer correctly. Questions are multiple choice and worth 1 point each. At the end we will tally your score. Good Luck! Press Start to begin! "
+        h3.textContent = "Test your knowledge of Trivia about the Coachella Music Festival. You have 25 seconds to answer correctly. Questions are multiple choice and worth 1 point each. At the end we will tally your score. Good Luck! Press Start to begin! "
         gameContainer.appendChild(h3);
 
         //-create play game button
@@ -131,7 +134,7 @@ var game = {
         var btn = document.createElement("button");
         btn.textContent = "Start!"
         btn.setAttribute("id", "start-game");
-        btn.setAttribute("class", "btn btn-danger");
+        btn.setAttribute("class", "bounce-1 btn btn-danger");
         btn.setAttribute("type", "button");
         gameContainer.appendChild(btn);
     },
@@ -144,6 +147,10 @@ var game = {
 
         //clear the game-container
         gameContainer.innerHTML = ""
+
+        var timeLeft = document.createElement("h4");
+        timeLeft.textContent = "Hurry!...answer the question before timer reaches 0"
+        gameContainer.appendChild(timeLeft);
 
         //create container to hold countdown timer
         //add the timer container to the game container
@@ -168,31 +175,31 @@ var game = {
             <button type="button" class="btn btn-primary">Right</button>
         </div>
          */
-            //this is a container to hold button group for each answer option
-            var btnGroup = document.createElement("div");
-            btnGroup.setAttribute("class", "btn-group-vertical");
-            btnGroup.setAttribute("role", "group");
+        //this is a container to hold button group for each answer option
+        var btnGroup = document.createElement("div");
+        btnGroup.setAttribute("class", "btn-group-vertical");
+        btnGroup.setAttribute("role", "group");
 
-            //create a button for each answer option and add it to the button group div
-            for(var i = 0; i < currentO.length; i++) {
-                var btn = document.createElement("button");
-                btn.setAttribute("class", "btn btn-primary q-o-btn")
-                btn.setAttribute("type", "button");
-                btn.setAttribute("data-oindex", i);
-                btn.textContent = currentO[i];
-                btnGroup.appendChild(btn);
+        //create a button for each answer option and add it to the button group div
+        for(var i = 0; i < currentO.length; i++) {
+            var btn = document.createElement("button");
+            btn.setAttribute("class", "btn btn-primary q-o-btn")
+            btn.setAttribute("type", "button");
+            btn.setAttribute("data-oindex", i);
+            btn.textContent = currentO[i];
+            btnGroup.appendChild(btn);
 
-            }
+        }
 
-            //add the button group containing all tthe button options to the game container
-            gameContainer.appendChild(btnGroup);
+        //add the button group containing all tthe button options to the game container
+        gameContainer.appendChild(btnGroup);
 
-            //clear any existing Interval conected to the timer ID
-            //this is to insure our timer doesn't randomly speed up
-            //ALWAYS CLEAR TIME INTERVAL BEFORE STARTING ONE!
-            clearInterval(timerId);
-            //start Interval tha will run every 1 sec
-            timerId = setInterval(game.timerDisplay, 1000);
+        //clear any existing Interval conected to the timer ID
+        //this is to insure our timer doesn't randomly speed up
+        //ALWAYS CLEAR TIME INTERVAL BEFORE STARTING ONE!
+        clearInterval(timerId);
+        //start Interval tha will run every 1 sec
+        timerId = setInterval(game.timerDisplay, 1000);
 
     },
 
@@ -220,14 +227,15 @@ var game = {
             case 2:
                 game.incorrectQuestions++
                 h3.textContent = `Incorrect! ${answer} was the right answer.`
-                image.src = game.questions[game.currentQuestion].image
+                image.src = game.questions[game.currentQuestion].image;
                 wrongSound.play();
                 break;
             default:
                 game.incorrectQuestions++
                 h3.textContent = `Times UP! ${answer} is the right answer.`
-                image.src = game.questions[game.currentQuestion].image
+                image.src = game.questions[game.currentQuestion].image;
                 wrongSound.play();
+                booSound.play();
                 break;
         }
         gameContainer.append(h3, image);
@@ -262,7 +270,7 @@ var game = {
             clearInterval(timerId);
 
             //reseting our time back to 20
-            game.time = 20;
+            game.time = 25;
 
             //display out of time screen
             game.bQDisplay(3)
@@ -288,7 +296,7 @@ var game = {
         var rePlay = document.createElement("button")
         rePlay.textContent = "re-Play!"
         rePlay.setAttribute("id", "reset")
-        rePlay.setAttribute("class", "btn btn-warning")
+        rePlay.setAttribute("class", "bounce-1 btn btn-warning")
         gameContainer.appendChild(rePlay);
 
         var resetBtn = document.getElementById("reset");
