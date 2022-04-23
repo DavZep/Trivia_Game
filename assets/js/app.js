@@ -15,43 +15,119 @@
  offer the user to play again
  */
 
+ //hooking game con
 var gameContainer = document.getElementById("game-container");
+//hold the interval to be used when needed and to cancel Interval
 var timerId;
+//possible not needed
 var timeOutId;
+
+let correctSound = new Audio("./assets/sound/correct.mp3");
+correctSound.volume = 0.1;
+
+let wrongSound = new Audio("./assets/sound/wrong.mp3");
+wrongSound.volume = 0.1;
+//when user enters incorre
+
+let resetSound = new Audio("./assets/sound/robot_power_up_surge.mp3");
+resetSound.volume = 0.1;
+
+let endSound = new Audio("./assets/sound/large_crowd_outdoor_cheering_clapping.mp3");
+endSound.volume = 0.1;
+
+
+//game dictionary (object) hold everything relevant to our trivia game
 var game = {
     currentQuestion: 0,
     correctQuestions: 0,
     incorrectQuestions: 0,
-    time: 10,
+    //update time to 20 secs
+    time: 20,
     questions: [
         {
             q: "In what year did Coachella first start?",
             o: ["1999", "2000","2002", "2004"],
-            a: 0
+            a: 0,
+            image: "./assets/img/coachella-lineup.jpg"
         },
         {
             q:"How much money did the event make or lose that first year?",
-            o:["$500,000", "$1,000,000", "-$800,000", "-$80,000"],
-            a: 2
+            o:["Made $500,000", "Made $1,000,000", "Lost -$800,000", "Lost -$80,000"],
+            a: 2,
+            image: "./assets/img/burning-money.gif"
+
         },
         {
             q:"Which artist came back from the dead and performed at Coachella 2012 via holographic image projection?",
             o:["Elvis", "Micheal Jackson", "Biggie Smalls", "Tupac"],
-            a: 3
-        }
-    ],
+            a: 3,
+            image: "./assets/img/tupac.gif"
+        },
+        {
+            q:"When the festival first started, how much was a General Admission Ticket?",
+            o:["$125 per day", "$99 per day", "$80 per day", "$50 per day"],
+            a: 3,
+            image: "./assets/img/coachella-99-ticket.jpg"
 
+        },
+        {
+            q:"Across the grounds, several stages continuously host live music. Which Stage is not part of Coachella?",
+            o:["Perry's Stage", "Gobi Tent", "Sahara Tent", "Do-Lab"],
+            a: 0,
+            image: "./assets/img/map.jpg"
+
+        },
+        {
+            q:"What is the name of Beyoncé's Documentary, which details how the pop superstar created her iconic 2018 Coachella headling set?",
+            o:["BeeHive", "Blue Ivy Carter", "HomeComing", "Yoncé"],
+            a: 2,
+            image: "./assets/img/beyonce-homecoming.gif"
+
+        },
+        {
+            q:"Coachella has been the home of many band reunions and revitalization. Which band has not reunited at Coachella?",
+            o:["Nine Inch Nails", "Oasis", "Rage Against The Machine", "Jane's Addiction"],
+            a: 1,
+            image: "./assets/img/oasis.gif"
+
+        },
+        {
+            q:"In 2008, Roger Waters had a giant inflatable animal that got loose and floated into 2 residents yards. Which GoldenVoice then gave free life time passes to retrieve. What animal was it?",
+            o:["Unicorn", "Pig", "Cow", "Hippo"],
+            a: 1,
+            image: "./assets/img/pig.jpg"
+
+        },
+        {
+            q:"How much is a 2022 VIP Tier 4 pass before fees?",
+            o:["$549", "$929", "$849", "$1,119"],
+            a: 3,
+            image: "./assets/img/vip-ticket.jpg"
+
+        },
+        {
+            q:"Who was the Headliner for Coachella 2022?",
+            o:["Kanye", "Swedish House Mafia x The Weekend", "Travis Scott", "SnoopDogg"],
+            a: 1,
+            image: "./assets/img/shm-week.jpg"
+
+        }
+
+    ],
+    
+    //creates html for the opening screen before game begins
     mainDisplay: function(){
-        /*
-        create instructions for the game and
-        play game button
-        */
+        //-clear game container of any existing  content
         gameContainer.innerHTML = ""
 
+        //-add instructions and buttons to the game container
+        //-create instructions for the game container
         var h3 = document.createElement("h3");
-        h3.textContent = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac ut consequat semper viverra. Risus viverra adipiscing at in. Lobortis feugiat vivamus at augue. Vitae congue mauris rhoncus aenean vel elit scelerisque. "
+        h3.textContent = "Test your knowledge of Trivia about the Coachella Music Festival. You have 20 seconds to answer correctly. Questions are multiple choice and worth 1 point each. At the end we will tally your score. Good Luck! Press Start to begin! "
         gameContainer.appendChild(h3);
 
+        //-create play game button
+        //add button to the game container
         var btn = document.createElement("button");
         btn.textContent = "Start!"
         btn.setAttribute("id", "start-game");
@@ -61,107 +137,213 @@ var game = {
     },
 
     qDisplay: function(){
-        
-        //get current Question we are on, fetch current Q object from the questions array
-        var currentQ = this.questions[this.currentQuestion].q
-        var currentO = this.questions[this.currentQuestion].o
+        //get current Question from the question array
+        var currentQ = game.questions[game.currentQuestion].q
+        //get current Options from the question array
+        var currentO = game.questions[game.currentQuestion].o
+
         //clear the game-container
         gameContainer.innerHTML = ""
 
+        //create container to hold countdown timer
+        //add the timer container to the game container
         var timerDiv = document.createElement("div");
         timerDiv.setAttribute("id", "timer-wrap");
         timerDiv.textContent = this.time
         gameContainer.appendChild(timerDiv);
         
-        //create text elm with current Question text
+        //create a text element with the current question text
+        //add current question text to the game container
         var h3 = document.createElement("h3");
         h3.textContent = currentQ
         gameContainer.appendChild(h3);
 
         /**
-         
+         This is an example of the structure 
+         needed for the answer options:
+
          <div class="btn-group-vertical" role="group" aria-label="Basic example">
             <button type="button" class="btn btn-primary">Left</button>
             <button type="button" class="btn btn-primary">Middle</button>
             <button type="button" class="btn btn-primary">Right</button>
         </div>
          */
-        var btnGroup = document.createElement("div");
-        btnGroup.setAttribute("class", "btn-group-vertical");
-        btnGroup.setAttribute("role", "group");
+            //this is a container to hold button group for each answer option
+            var btnGroup = document.createElement("div");
+            btnGroup.setAttribute("class", "btn-group-vertical");
+            btnGroup.setAttribute("role", "group");
 
-        for(var i = 0; i < currentO.length; i++) {
-            var btn = document.createElement("button");
-            btn.setAttribute("class", "btn btn-primary q-o-btn")
-            btn.setAttribute("type", "button");
-            btn.setAttribute("data-oindex", i);
-            btn.textContent = currentO[i];
-            btnGroup.appendChild(btn);
+            //create a button for each answer option and add it to the button group div
+            for(var i = 0; i < currentO.length; i++) {
+                var btn = document.createElement("button");
+                btn.setAttribute("class", "btn btn-primary q-o-btn")
+                btn.setAttribute("type", "button");
+                btn.setAttribute("data-oindex", i);
+                btn.textContent = currentO[i];
+                btnGroup.appendChild(btn);
+
+            }
+
+            //add the button group containing all tthe button options to the game container
+            gameContainer.appendChild(btnGroup);
+
+            //clear any existing Interval conected to the timer ID
+            //this is to insure our timer doesn't randomly speed up
+            //ALWAYS CLEAR TIME INTERVAL BEFORE STARTING ONE!
+            clearInterval(timerId);
+            //start Interval tha will run every 1 sec
+            timerId = setInterval(game.timerDisplay, 1000);
+
+    },
+
+    //display correct, incorrect or out of time screens
+    // 1 = correct,
+    //2 = incorrect
+    //3 = out of time
+    bQDisplay: function(num){
+        //clear any existing content in game-container
+        gameContainer.innerHTML = ""
+
+        var answerIndex = game.questions[game.currentQuestion].a
+        var answer = game.questions[game.currentQuestion].o[answerIndex]
+        //check what num is to determine what screen  to display
+        var h3 = document.createElement("h3");
+        var image = document.createElement("img");
+        image.setAttribute("id", "pics");
+        switch(num){
+            case 1:
+                game.correctQuestions++
+                h3.textContent = `Correct! ${answer} is the right answer.`
+                image.src = game.questions[game.currentQuestion].image
+                correctSound.play();
+                break;
+            case 2:
+                game.incorrectQuestions++
+                h3.textContent = `Incorrect! ${answer} was the right answer.`
+                image.src = game.questions[game.currentQuestion].image
+                wrongSound.play();
+                break;
+            default:
+                game.incorrectQuestions++
+                h3.textContent = `Times UP! ${answer} is the right answer.`
+                image.src = game.questions[game.currentQuestion].image
+                wrongSound.play();
+                break;
+        }
+        gameContainer.append(h3, image);
+
+
+        if (game.currentQuestion < game.questions.length - 1){
+            game.currentQuestion++
+            setTimeout(game.qDisplay, 4000)
+
+        }else {
+            setTimeout(game.lDisplay, 4000)
+            endSound.play();
 
         }
 
-        gameContainer.appendChild(btnGroup);
-        clearInterval(timerId);
-        timerId = setInterval(game.timerDisplay, 1000);
-        //create buttons for each option 
-        //start interval, that counts down
-        //call interval function
-        //append test and buttons to game-container
-
     },
 
-    bQDisplay: function(num){
-        gameContainer.innerHTML = ""
-        gameContainer.textContent = num
-    },
-
+    //manage and display question timer
     timerDisplay: function(){
+        //hook on to the timer-wrap div from HTML
         var timerDiv = document.getElementById("timer-wrap");
-        //reduce time by 1, and display time on page
+        
+        //reduce time by 1
         game.time--
 
+        //display time in the timer-wrap div
         timerDiv.textContent = game.time
+
         //check if time is equal 0 or less than zero
         if(game.time <= 0){
+            //stop the Interval(timer)
             clearInterval(timerId);
-            game.time = 10;
+
+            //reseting our time back to 20
+            game.time = 20;
+
+            //display out of time screen
             game.bQDisplay(3)
 
         }
-        //if true ,call bQDisplay
-        //clear our interval and reset timer variable
+    },
+    lDisplay: function(){
+        /*
+        display game over title
+        display how many correct answers
+        display how many incorrect answers
+        create a button to play again
+        call reset game function on click
+        creat a click event for button that resets game and calls on qDisplay
+        */
+        gameContainer.innerHTML = "";
+
+        var gameOverStats = document.createElement("h2");
+        gameOverStats.textContent = `Game Over! you got ${game.correctQuestions} correct answers and missed ${game.incorrectQuestions} questions. Press re-Play to try again`
+
+        gameContainer.appendChild(gameOverStats)
+
+        var rePlay = document.createElement("button")
+        rePlay.textContent = "re-Play!"
+        rePlay.setAttribute("id", "reset")
+        rePlay.setAttribute("class", "btn btn-warning")
+        gameContainer.appendChild(rePlay);
+
+        var resetBtn = document.getElementById("reset");
+        resetBtn.onclick = function(){
+            game.gameReset();
+            resetSound.play();
+        }
+    },
+    gameReset: function(){
+        //reset all values to original value
+        gameContainer.innerHTML = "";
+        game.currentQuestion = 0
+        game.correctQuestions = 0
+        game.incorrectQuestions = 0
+        game.qDisplay();
     }
     
 }
 
+//dynamic click event for all button created in javascript
 document.addEventListener("click", function(event){
     //onclick start game
     if(event.target.id === "start-game") {
-        console.log("start-game")
+        //display the question
         game.qDisplay();
     }
 
-    //if option button clicked get the current question answer and 
-    console.log(event.target.className.includes("q-o-btn"))
+    //onclick of any question option button
     if(event.target.className.includes("q-o-btn")) {
+        //stop the timer
         clearInterval(timerId);
-        game.time = 10;
+        //reset the game time to 10 sec
+        game.time = 20;
+
+        //get the data attribute of oindex from the question option button that was clicked on
+        //convert the value of oindex attribute to a number from a string
         var userAnswer = parseInt(event.target.getAttribute("data-oindex"));
-        var optionList = document.querySelectorAll(".q-o-btn")
-        console.log(optionList)
-        for(var i = 0; i < optionList.length; i++){
+
+        //get all of the question option buttons (array of HTML elments)
+        var optionList = document.querySelectorAll(".q-o-btn");
+
+        //for each question option button add the disable attribute
+        // this prevent yhe user from clicking multiple answers
+        for(var i = 0; i < optionList.length; i++) {
             //disable other option buttons
             optionList[i].setAttribute("disabled", true);
         }
-        if(game.questions[game.currentQuestion].a === userAnswer){
-            console.log("correct");
-            game.bQDisplay(1)
-            game.correctQuestions++
-        }else {
-            console.log("incorrect");
-            game.bQDisplay(2)
-            game.incorrectQuestions++
+        //check if users guess matches the questions answer
+        if(game.questions[game.currentQuestion].a === userAnswer) {
+            //display correct answer screen
+            game.bQDisplay(1);
 
+        }else {
+            //display incorrect answer screen
+            game.bQDisplay(2)
 
         }
 

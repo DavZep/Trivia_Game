@@ -9,6 +9,53 @@ body {
     background-size: cover;
 }
 
+header {
+    padding-top: 5px;
+    position: relative;
+}
+
+#timer-wrap {
+    font-size: 50px;
+    font-family: 'Pacifico', cursive;
+    color: crimson;
+}
+
+h3 {
+    padding: 10px;
+    color: rgb(6, 6, 6);
+    background: rgba(164, 126, 158, 0.8);
+    border-radius: 20px;
+    font-family: 'Permanent Marker', cursive;
+
+}
+
+h2 {
+    padding: 10px;
+    color: rgb(6, 6, 6);
+    background: rgba(164, 126, 158, 0.8);
+    border-radius: 20px;
+    font-family: 'Permanent Marker', cursive;
+}
+
+#start-game,
+#reset {
+    font-family: 'Permanent Marker', cursive;
+}
+
+.btn-group-vertical > button{
+    margin-bottom:10px;
+    border-radius:10px !important;
+}
+
+.btn {
+    font-size: 30px;
+}
+
+#pics {
+    height: 300px;
+    width: 500px;
+}
+
 
 
 
@@ -18,9 +65,9 @@ body {
     clear: both;
     font-size: 12px;
     color: #fff;
-    color: #ccc;
+    color: rgb(0, 0, 0);
     text-align: center;
-    background: rgb(30, 2, 107);
+    background: rgba(164, 126, 158, 0.8);
 }
 
 .footer,
