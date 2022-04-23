@@ -27,16 +27,20 @@ correctSound.volume = 0.1;
 
 let wrongSound = new Audio("./assets/sound/wrong.mp3");
 wrongSound.volume = 0.1;
-//when user enters incorre
+//when user enters incorrect
 
 let resetSound = new Audio("./assets/sound/robot_power_up_surge.mp3");
 resetSound.volume = 0.1;
 
-let endSound = new Audio("./assets/sound/large_crowd_outdoor_cheering_clapping.mp3");
-endSound.volume = 0.1;
+let crowdCheerSound = new Audio("./assets/sound/large_crowd_outdoor_cheering_clapping.mp3");
+crowdCheerSound.volume = 0.1;
 
 let booSound = new Audio("./assets/sound/crowd_boo.mp3");
 booSound.volume = 0.1;
+
+let coachellaSound = new Audio("./assets/sound/coachellaa.mp3");
+coachellaSound.volume = 0.2;
+
 
 
 //game dictionary (object) hold everything relevant to our trivia game
@@ -48,70 +52,70 @@ var game = {
     time: 25,
     questions: [
         {
-            q: "In what year did Coachella first start?",
+            q: "1: In what year did Coachella first start?",
             o: ["1999", "2000","2002", "2004"],
             a: 0,
             image: "./assets/img/coachella-lineup.jpg"
         },
         {
-            q:'How much money did the event make or lose that first year in "99"?',
+            q:'2: How much money did the event make or lose that first year in "99"?',
             o:["Made $500,000", "Made $1,000,000", "Lost -$850,000", "Lost -$80,000"],
             a: 2,
             image: "./assets/img/burning-money.gif"
 
         },
         {
-            q:"Which artist came back from the dead and performed at Coachella 2012 via holographic image projection?",
+            q:"3: Which artist came back from the dead and performed at Coachella 2012 via holographic image projection?",
             o:["Elvis", "Micheal Jackson", "Biggie Smalls", "Tupac"],
             a: 3,
-            image: "./assets/img/tupac.gif"
+            image: "./assets/img/tupac2.gif"
         },
         {
-            q:"When the festival first started, how much was a General Admission Ticket?",
+            q:"4: When the festival first started, how much was a General Admission Ticket?",
             o:["$125 per day", "$99 per day", "$80 per day", "$50 per day"],
             a: 3,
             image: "./assets/img/coachella-99-ticket.jpg"
 
         },
         {
-            q:"Across the grounds, several stages continuously host live music. Which Stage is not part of Coachella?",
-            o:["Perry's Stage", "Gobi Tent", "Sahara Tent", "Do-Lab"],
+            q:"5: Across the grounds, several stages, tents and houses continuously host live music. Which name is not part of Coachella?",
+            o:["RedBull Stage", "Gobi Tent", "Sahara Tent", "Do-Lab", "Heiniken House"],
             a: 0,
             image: "./assets/img/map.jpg"
 
         },
         {
-            q:"What is the name of Beyoncé's Documentary, which details how the pop superstar created her iconic 2018 Coachella headling set?",
-            o:["BeeHive", "Blue Ivy Carter", "HomeComing", "Yoncé"],
+            q:"6: What is the name of Beyoncé's Documentary, which details how the pop superstar created her iconic 2018 Coachella headling set?",
+            o:["BeeHive", "Blue Ivy Carter", "HomeComing", "Yoncé", "MsCarter"],
             a: 2,
             image: "./assets/img/beyonce-homecoming1.gif"
 
         },
         {
-            q:"Coachella has been the home of many band reunions and revitalization. Which band has not reunited at Coachella?",
+            q:"7: Coachella has been the home of many band reunions and revitalizations. Which band has not reunited at Coachella?",
             o:["Nine Inch Nails", "Oasis", "Rage Against The Machine", "Jane's Addiction"],
             a: 1,
             image: "./assets/img/oasis.gif"
 
         },
         {
-            q:"In 2008, Roger Waters had a giant inflatable animal that got loose and floated into 2 residents yards. Which GoldenVoice then gave free life time passes to retrieve. What animal was it?",
+            q:"8: In 2008, Roger Waters had a giant inflatable animal that got loose and floated into 2 residents yards. Which GoldenVoice then gave $10k and free life time passes to retrieve. What animal was it?",
             o:["Unicorn", "Pig", "Cow", "Hippo"],
             a: 1,
             image: "./assets/img/pig.jpg"
 
         },
         {
-            q:"How much is a 2022 VIP Tier 4 pass before fees?",
+            q:"9: How much is a 2022 VIP Tier 4 pass before fees?",
             o:["$549", "$929", "$849", "$1,119"],
             a: 3,
             image: "./assets/img/vip-ticket.jpg"
 
         },
         {
-            q:"Who was the Headliner for Coachella 2022?",
-            o:["Kanye", "Swedish House Mafia x The Weekend", "Travis Scott", "SnoopDogg"],
-            a: 1,
+            q:"1: Who was the Headliner for Coachella 2022?",
+            o:["Lady GaGa", "Kanye", "Swedish House Mafia x The Weekend", "Travis Scott", "SnoopDogg"],
+            a: 2,
             image: "./assets/img/shm-week.jpg"
 
         }
@@ -247,7 +251,6 @@ var game = {
 
         }else {
             setTimeout(game.lDisplay, 4000)
-            endSound.play();
 
         }
 
@@ -287,6 +290,8 @@ var game = {
         creat a click event for button that resets game and calls on qDisplay
         */
         gameContainer.innerHTML = "";
+        crowdCheerSound.play();
+        coachellaSound.play();
 
         var gameOverStats = document.createElement("h2");
         gameOverStats.textContent = `Game Over! you got ${game.correctQuestions} correct answers and missed ${game.incorrectQuestions} questions. Press re-Play to try again`
@@ -303,7 +308,9 @@ var game = {
         resetBtn.onclick = function(){
             game.gameReset();
             resetSound.play();
+            coachellaSound.play();
         }
+
     },
     gameReset: function(){
         //reset all values to original value
@@ -312,7 +319,7 @@ var game = {
         game.correctQuestions = 0
         game.incorrectQuestions = 0
         game.qDisplay();
-    }
+    },
     
 }
 
@@ -322,6 +329,9 @@ document.addEventListener("click", function(event){
     if(event.target.id === "start-game") {
         //display the question
         game.qDisplay();
+        coachellaSound.play();
+        crowdCheerSound.play();
+
     }
 
     //onclick of any question option button
