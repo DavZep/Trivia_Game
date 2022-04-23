@@ -52,68 +52,68 @@ var game = {
     time: 25,
     questions: [
         {
-            q: "1: In what year did Coachella first start?",
+            q: "1. In what year did Coachella first start?",
             o: ["1999", "2000","2002", "2004"],
             a: 0,
             image: "./assets/img/coachella-lineup.jpg"
         },
         {
-            q:'2: How much money did the event make or lose that first year in "99"?',
+            q:'2. How much money did the event make or lose that first year in "99"?',
             o:["Made $500,000", "Made $1,000,000", "Lost -$850,000", "Lost -$80,000"],
             a: 2,
             image: "./assets/img/burning-money.gif"
 
         },
         {
-            q:"3: Which artist came back from the dead and performed at Coachella 2012 via holographic image projection?",
+            q:"3. Which artist came back from the dead and performed at Coachella 2012 via holographic image projection?",
             o:["Elvis", "Micheal Jackson", "Biggie Smalls", "Tupac"],
             a: 3,
             image: "./assets/img/tupac2.gif"
         },
         {
-            q:"4: When the festival first started, how much was a General Admission Ticket?",
+            q:"4. When the festival first started, how much was a General Admission Ticket?",
             o:["$125 per day", "$99 per day", "$80 per day", "$50 per day"],
             a: 3,
             image: "./assets/img/coachella-99-ticket.jpg"
 
         },
         {
-            q:"5: Across the grounds, several stages, tents and houses continuously host live music. Which name is not part of Coachella?",
+            q:"5. Across the grounds, several stages, tents and houses continuously host live music. Which name is not part of Coachella?",
             o:["RedBull Stage", "Gobi Tent", "Sahara Tent", "Do-Lab", "Heiniken House"],
             a: 0,
             image: "./assets/img/map.jpg"
 
         },
         {
-            q:"6: What is the name of Beyoncé's Documentary, which details how the pop superstar created her iconic 2018 Coachella headling set?",
+            q:"6. What is the name of Beyoncé's Documentary, which details how the pop superstar created her iconic 2018 Coachella headling set?",
             o:["BeeHive", "Blue Ivy Carter", "HomeComing", "Yoncé", "MsCarter"],
             a: 2,
             image: "./assets/img/beyonce-homecoming1.gif"
 
         },
         {
-            q:"7: Coachella has been the home of many band reunions and revitalizations. Which band has not reunited at Coachella?",
+            q:"7. Coachella has been the home of many band reunions and revitalizations. Which band has not reunited at Coachella?",
             o:["Nine Inch Nails", "Oasis", "Rage Against The Machine", "Jane's Addiction"],
             a: 1,
             image: "./assets/img/oasis.gif"
 
         },
         {
-            q:"8: In 2008, Roger Waters had a giant inflatable animal that got loose and floated into 2 residents yards. Which GoldenVoice then gave $10k and free life time passes to retrieve. What animal was it?",
+            q:"8. In 2008, Roger Waters had a giant inflatable animal that got loose and floated into 2 residents yards. Which GoldenVoice then gave $10k and free life time passes to retrieve. What animal was it?",
             o:["Unicorn", "Pig", "Cow", "Hippo"],
             a: 1,
             image: "./assets/img/pig.jpg"
 
         },
         {
-            q:"9: How much is a 2022 VIP Tier 4 pass before fees?",
+            q:"9. How much is a 2022 VIP Tier 4 pass before fees?",
             o:["$549", "$929", "$849", "$1,119"],
             a: 3,
             image: "./assets/img/vip-ticket.jpg"
 
         },
         {
-            q:"1: Who was the Headliner for Coachella 2022?",
+            q:"10. Who was the Headliner for Coachella 2022?",
             o:["Lady GaGa", "Kanye", "Swedish House Mafia x The Weekend", "Travis Scott", "SnoopDogg"],
             a: 2,
             image: "./assets/img/shm-week.jpg"
