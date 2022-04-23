@@ -81,7 +81,7 @@ var game = {
             q:"What is the name of Beyoncé's Documentary, which details how the pop superstar created her iconic 2018 Coachella headling set?",
             o:["BeeHive", "Blue Ivy Carter", "HomeComing", "Yoncé"],
             a: 2,
-            image: "./assets/img/beyonce-homecoming.gif"
+            image: "./assets/img/beyonce-homecoming1.gif"
 
         },
         {
