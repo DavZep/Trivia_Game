@@ -19,15 +19,13 @@
 var gameContainer = document.getElementById("game-container");
 //hold the interval to be used when needed and to cancel Interval
 var timerId;
-//possible not needed
-var timeOutId;
 
+//sounds
 let correctSound = new Audio("./assets/sound/guitar_fast_solo.mp3");
 correctSound.volume = 0.1;
 
 let wrongSound = new Audio("./assets/sound/wrong.mp3");
 wrongSound.volume = 0.1;
-//when user enters incorrect
 
 let resetSound = new Audio("./assets/sound/robot_power_up_surge.mp3");
 resetSound.volume = 0.1;
@@ -38,8 +36,8 @@ crowdCheerSound.volume = 0.1;
 let booSound = new Audio("./assets/sound/crowd_boo.mp3");
 booSound.volume = 0.1;
 
-let coachellaSound = new Audio("./assets/sound/coachellaa.mp3");
-coachellaSound.volume = 0.2;
+let chellaSound = new Audio("./assets/sound/coachellaa.mp3");
+chellaSound.volume = 0.2;
 
 
 
@@ -152,8 +150,9 @@ var game = {
         //clear the game-container
         gameContainer.innerHTML = ""
 
+        //create text Elm telling user to answer the Q bedfore time runs out, creating urgency
         var timeLeft = document.createElement("h4");
-        timeLeft.textContent = "Hurry!...answer the question before timer reaches 0"
+        timeLeft.textContent = "Hurry, time is running out!"
         gameContainer.appendChild(timeLeft);
 
         //create container to hold countdown timer
@@ -174,9 +173,10 @@ var game = {
          needed for the answer options:
 
          <div class="btn-group-vertical" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-primary">Left</button>
-            <button type="button" class="btn btn-primary">Middle</button>
-            <button type="button" class="btn btn-primary">Right</button>
+            <button type="button" class="btn btn-primary">Option1</button>
+            <button type="button" class="btn btn-primary">Option2</button>
+            <button type="button" class="btn btn-primary">Option3</button>
+            <button type="button" class="btn btn-primary">Option4</button>
         </div>
          */
         //this is a container to hold button group for each answer option
@@ -214,42 +214,72 @@ var game = {
     bQDisplay: function(num){
         //clear any existing content in game-container
         gameContainer.innerHTML = ""
-
+        //variable get correct answer from object
         var answerIndex = game.questions[game.currentQuestion].a
         var answer = game.questions[game.currentQuestion].o[answerIndex]
-        //check what num is to determine what screen  to display
+
+        //create elemnt (placeholder)for correct, incorrect & timesup 
         var h3 = document.createElement("h3");
+        
+        //create element with ID "pics for image & gif
         var image = document.createElement("img");
         image.setAttribute("id", "pics");
+        
+        //check what num is to determine what screen  to display
         switch(num){
             case 1:
+                //add 1 to correct questions answerd 
                 game.correctQuestions++
+                
+                //write to H3 their choice/answer is correct
                 h3.textContent = `Correct! ${answer} is the right answer.`
+                
+                //visual display pic or gif of the correct answer
                 image.src = game.questions[game.currentQuestion].image
+                
+                //positive feedback sound 
                 correctSound.play();
+                // The break statement breaks out of a switch, stops execution of more code inside switch
                 break;
             case 2:
+                //add 1 to incorrect questions answerd 
                 game.incorrectQuestions++
+                
+                //writes to h3 their answer/choice is incorrect & what correct answer is
                 h3.textContent = `Incorrect! ${answer} was the right answer.`
+                
+                //visual display pic or gif of the correct answer
                 image.src = game.questions[game.currentQuestion].image;
+                
+                //negative feedback sound 
                 wrongSound.play();
                 break;
             default:
+                //add 1 to incorrect questions answerd 
                 game.incorrectQuestions++
+                
+                //lets user know they didnt answer Q in time & what is the correct answer 
                 h3.textContent = `Times UP! ${answer} is the right answer.`
+                
+                //visual display pic or gif of the correct answer
                 image.src = game.questions[game.currentQuestion].image;
+                
+                //2 negative feedback sounds incouraging user to answer Q b4 timeup
                 wrongSound.play();
                 booSound.play();
                 break;
         }
+        //append h3 and image from above
         gameContainer.append(h3, image);
 
-
+        //checks if theres any questions left to display
         if (game.currentQuestion < game.questions.length - 1){
+            //add 1 to current question
             game.currentQuestion++
+            //sets a delay of 4 sec before dislpaying next Q
             setTimeout(game.qDisplay, 4000)
-
         }else {
+            //if no more questions, delay and display ldisplay (gameOver, correct, incorrect stats)
             setTimeout(game.lDisplay, 4000)
 
         }
@@ -272,7 +302,7 @@ var game = {
             //stop the Interval(timer)
             clearInterval(timerId);
 
-            //reseting our time back to 20
+            //reseting our time back to 25
             game.time = 25;
 
             //display out of time screen
@@ -281,39 +311,36 @@ var game = {
         }
     },
     lDisplay: function(){
-        /*
-        display game over title
-        display how many correct answers
-        display how many incorrect answers
-        create a button to play again
-        call reset game function on click
-        creat a click event for button that resets game and calls on qDisplay
-        */
+       //clear gamecontainer to empty string
         gameContainer.innerHTML = "";
+        //cool sounds signaling end
         crowdCheerSound.play();
-        coachellaSound.play();
+        chellaSound.play();
 
+        //display GamOver title with how many correct answers & incorrect answers
         var gameOverStats = document.createElement("h2");
         gameOverStats.textContent = `Game Over! you got ${game.correctQuestions} correct answers and missed ${game.incorrectQuestions} questions. Press re-Play to try again`
-
         gameContainer.appendChild(gameOverStats)
 
+        //create a button to play again
         var rePlay = document.createElement("button")
         rePlay.textContent = "re-Play!"
         rePlay.setAttribute("id", "reset")
-        rePlay.setAttribute("class", "bounce-1 btn btn-warning")
+        rePlay.setAttribute("class", "btn btn-warning")
         gameContainer.appendChild(rePlay);
 
+        //create a click event for button that resets game 
         var resetBtn = document.getElementById("reset");
         resetBtn.onclick = function(){
+            //call reset game function on click
             game.gameReset();
             resetSound.play();
-            coachellaSound.play();
+            chellaSound.play();
         }
 
     },
     gameReset: function(){
-        //reset all values to original value
+        //reset all values to original value and call on qDisplay
         gameContainer.innerHTML = "";
         game.currentQuestion = 0
         game.correctQuestions = 0
@@ -329,9 +356,8 @@ document.addEventListener("click", function(event){
     if(event.target.id === "start-game") {
         //display the question
         game.qDisplay();
-        coachellaSound.play();
+        chellaSound.play();
         crowdCheerSound.play();
-
     }
 
     //onclick of any question option button
@@ -366,10 +392,7 @@ document.addEventListener("click", function(event){
         }
 
     }
-    //compare it to the clicked button data O index
 
-    //clear interval
-    //call on function Display bQDisplay
 });
 
 game.mainDisplay();
