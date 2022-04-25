@@ -98,8 +98,8 @@ var game = {
         },
         {
             q:"8. In 2008, Roger Waters had a giant inflatable animal that got loose and floated into 2 residents yards. Which GoldenVoice then gave $10k and free life time passes to retrieve. What animal was it?",
-            o:["Unicorn", "Pig", "Cow", "Hippo"],
-            a: 1,
+            o:["Pig", "Unicorn", "Cow", "Hippo"],
+            a: 0,
             image: "./assets/img/pig.jpg"
 
         },
@@ -128,7 +128,7 @@ var game = {
         //-add instructions and buttons to the game container
         //-create instructions for the game container
         var h3 = document.createElement("h3");
-        h3.textContent = "Test your knowledge of Trivia about the Coachella Music Festival. You have 25 seconds to answer correctly. Questions are multiple choice and worth 1 point each. At the end we will tally your score. Good Luck! Press Start to begin! "
+        h3.textContent = "tests your knowledge about the Coachella Music & art Festival. You have 25 seconds to answer correctly. Questions are multiple choice and worth 1 point each. At the end we will tally your score. Good Luck! Press Start to begin! "
         gameContainer.appendChild(h3);
 
         //-create play game button
@@ -319,7 +319,7 @@ var game = {
 
         //display GamOver title with how many correct answers & incorrect answers
         var gameOverStats = document.createElement("h2");
-        gameOverStats.textContent = `Game Over! you got ${game.correctQuestions} correct answers and missed ${game.incorrectQuestions} questions. Press re-Play to try again`
+        gameOverStats.textContent = `Game Over! you got ${game.correctQuestions} correct answers and missed ${game.incorrectQuestions} questions. Press re-Play to try again!`
         gameContainer.appendChild(gameOverStats)
 
         //create a button to play again
