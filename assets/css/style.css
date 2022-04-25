@@ -55,7 +55,18 @@ h2 {
 
 }
 
+#hurry {
+    animation: blinker 1s linear infinite;
+}
+  
+  @keyframes blinker {
+    50% {
+      opacity: 0.1;
+    }
+  }
+
 h4 {
+    color: rgb(248, 175, 38);
     font-family: 'Permanent Marker', cursive;
  
 }
@@ -112,6 +123,9 @@ h4 {
 
     .btn {
         font-size: 35px;
+    }
+    #hurry {
+        font-size: 50px;
     }
     
 

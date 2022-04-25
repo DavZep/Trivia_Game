@@ -150,16 +150,20 @@ var game = {
         //clear the game-container
         gameContainer.innerHTML = ""
 
-        //create text Elm telling user to answer the Q bedfore time runs out, creating urgency
-        var timeLeft = document.createElement("h4");
-        timeLeft.textContent = "Hurry, time is running out!"
-        gameContainer.appendChild(timeLeft);
+        //create text Elm with 10s delay telling user 
+        //to answer the Q before time runs out, create urgency
+        var alertElm = document.createElement("h4");
+        hurryAlert = setTimeout(function(){
+            alertElm.textContent = "Hurry, time is running out!"
+            alertElm.setAttribute("id", "hurry")
+        }, 10000);
+        gameContainer.appendChild(alertElm);
 
         //create container to hold countdown timer
         //add the timer container to the game container
         var timerDiv = document.createElement("div");
         timerDiv.setAttribute("id", "timer-wrap");
-        timerDiv.textContent = this.time
+        timerDiv.textContent = game.time
         gameContainer.appendChild(timerDiv);
         
         //create a text element with the current question text
@@ -198,7 +202,7 @@ var game = {
         //add the button group containing all tthe button options to the game container
         gameContainer.appendChild(btnGroup);
 
-        //clear any existing Interval conected to the timer ID
+        //clear any existing Interval connected to the timer ID
         //this is to insure our timer doesn't randomly speed up
         //ALWAYS CLEAR TIME INTERVAL BEFORE STARTING ONE!
         clearInterval(timerId);
@@ -224,6 +228,9 @@ var game = {
         //create element with ID "pics for image & gif
         var image = document.createElement("img");
         image.setAttribute("id", "pics");
+
+        //clear hurry message
+        clearTimeout(hurryAlert);
         
         //check what num is to determine what screen  to display
         switch(num){
@@ -239,6 +246,7 @@ var game = {
                 
                 //positive feedback sound 
                 correctSound.play();
+
                 // The break statement breaks out of a switch, stops execution of more code inside switch
                 break;
             case 2:
@@ -253,6 +261,7 @@ var game = {
                 
                 //negative feedback sound 
                 wrongSound.play();
+
                 break;
             default:
                 //add 1 to incorrect questions answerd 
@@ -345,6 +354,7 @@ var game = {
         game.currentQuestion = 0
         game.correctQuestions = 0
         game.incorrectQuestions = 0
+        game.time = 25;
         game.qDisplay();
     },
     
@@ -364,8 +374,8 @@ document.addEventListener("click", function(event){
     if(event.target.className.includes("q-o-btn")) {
         //stop the timer
         clearInterval(timerId);
-        //reset the game time to 10 sec
-        game.time = 20;
+        //reset the game time to 25 sec
+        game.time = 25;
 
         //get the data attribute of oindex from the question option button that was clicked on
         //convert the value of oindex attribute to a number from a string
