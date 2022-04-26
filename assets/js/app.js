@@ -39,6 +39,9 @@ booSound.volume = 0.1;
 let chellaSound = new Audio("./assets/sound/coachellaa.mp3");
 chellaSound.volume = 0.2;
 
+let countDown = new Audio("./assets/sound/countdown_short.mp3");
+countDown.volume = 0.1;
+
 //game dictionary (object) hold everything relevant to our trivia game
 var game = {
     currentQuestion: 0,
@@ -148,13 +151,17 @@ var game = {
         //clear the game-container
         gameContainer.innerHTML = ""
 
+        countDownAudio = setTimeout(function(){
+            countDown.play();
+        }, 19100);
+
         //create text Elm with 10s delay telling user 
         //to answer the Q before time runs out, create urgency
         var alertElm = document.createElement("h4");
         hurryAlert = setTimeout(function(){
             alertElm.textContent = "Hurry time is running out!"
             alertElm.setAttribute("id", "flash-text")
-        }, 10000);
+        }, 15000);
         gameContainer.appendChild(alertElm);
 
         //create container to hold countdown timer
@@ -196,7 +203,6 @@ var game = {
             btnGroup.appendChild(btn);
 
         }
-
         //add the button group containing all the button options to the game container
         gameContainer.appendChild(btnGroup);
 
@@ -229,6 +235,7 @@ var game = {
 
         //clear hurry message
         clearTimeout(hurryAlert);
+        clearTimeout(countDownAudio);
         
         //check what num is to determine what screen  to display
         switch(num){
