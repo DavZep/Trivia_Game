@@ -15,7 +15,7 @@
  offer the user to play again
  */
 
- //hooking game con
+ //hooking game container
 var gameContainer = document.getElementById("game-container");
 //hold the interval to be used when needed and to cancel Interval
 var timerId;
@@ -134,7 +134,7 @@ var game = {
         var btn = document.createElement("button");
         btn.textContent = "Start!"
         btn.setAttribute("id", "start-game");
-        btn.setAttribute("class", "bounce-1 btn btn-danger");
+        btn.setAttribute("class", "btn btn-danger");
         btn.setAttribute("type", "button");
         gameContainer.appendChild(btn);
     },
@@ -197,14 +197,14 @@ var game = {
 
         }
 
-        //add the button group containing all tthe button options to the game container
+        //add the button group containing all the button options to the game container
         gameContainer.appendChild(btnGroup);
 
         //clear any existing Interval connected to the timer ID
         //this is to insure our timer doesn't randomly speed up
         //ALWAYS CLEAR TIME INTERVAL BEFORE STARTING ONE!
         clearInterval(timerId);
-        //start Interval tha will run every 1 sec
+        //start Interval that will run every 1 sec
         timerId = setInterval(game.timerDisplay, 1000);
 
     },
@@ -336,16 +336,8 @@ var game = {
         rePlay.setAttribute("class", "btn btn-warning")
         gameContainer.appendChild(rePlay);
 
-        //create a click event for button that resets game 
-        var resetBtn = document.getElementById("reset");
-        resetBtn.onclick = function(){
-            //call reset game function on click
-            game.gameReset();
-            resetSound.play();
-            chellaSound.play();
-        }
-
     },
+    //resets game
     gameReset: function(){
         //reset all values to original value and call on qDisplay
         gameContainer.innerHTML = "";
@@ -353,7 +345,9 @@ var game = {
         game.correctQuestions = 0
         game.incorrectQuestions = 0
         game.time = 25;
+        timerId = undefined
         game.qDisplay();
+
     },
     
 }
@@ -383,7 +377,7 @@ document.addEventListener("click", function(event){
         var optionList = document.querySelectorAll(".q-o-btn");
 
         //for each question option button add the disable attribute
-        // this prevent yhe user from clicking multiple answers
+        // this prevent the user from clicking multiple answers
         for(var i = 0; i < optionList.length; i++) {
             //disable other option buttons
             optionList[i].setAttribute("disabled", true);
@@ -400,6 +394,14 @@ document.addEventListener("click", function(event){
         }
 
     }
+    //create a click event for button that resets game 
+    if (event.target.id === "reset"){
+            //call reset game function on click
+            game.gameReset();
+            resetSound.play();
+            chellaSound.play();
+    }
+    
 
 });
 
