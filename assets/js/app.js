@@ -39,8 +39,6 @@ booSound.volume = 0.1;
 let chellaSound = new Audio("./assets/sound/coachellaa.mp3");
 chellaSound.volume = 0.2;
 
-
-
 //game dictionary (object) hold everything relevant to our trivia game
 var game = {
     currentQuestion: 0,
@@ -57,7 +55,7 @@ var game = {
         },
         {
             q:'2. How much money did the event make or lose that first year in "99"?',
-            o:["Made $500,000", "Made $1,000,000", "Lost -$850,000", "Lost -$80,000"],
+            o:["Made $500,000", "Made $1,000,000", "Lost -$850,000", "Lost -$85,000"],
             a: 2,
             image: "./assets/img/burning-money.gif"
 
@@ -84,7 +82,7 @@ var game = {
         },
         {
             q:"6. What is the name of Beyoncé's Documentary, which details how the pop superstar created her iconic 2018 Coachella headling set?",
-            o:["BeeHive", "Blue Ivy Carter", "HomeComing", "Yoncé", "MsCarter"],
+            o:["BeeHive", "Blue Ivy Carter", "HomeComing", "Yoncé", "Mrs. Carter"],
             a: 2,
             image: "./assets/img/beyonce-homecoming1.gif"
 
@@ -97,7 +95,7 @@ var game = {
 
         },
         {
-            q:"8. In 2008, Roger Waters had a giant inflatable animal that got loose and floated into 2 residents yards. Which GoldenVoice then gave $10k and free life time passes to retrieve. What animal was it?",
+            q:"8. In 2008, Roger Waters had a giant inflatable animal that got loose and floated into 2 residents yards. GoldenVoice then gave the Homeowners $10k and free life time passes each upon return. What animal was it?",
             o:["Pig", "Unicorn", "Cow", "Hippo"],
             a: 0,
             image: "./assets/img/pig.jpg"
@@ -111,7 +109,7 @@ var game = {
 
         },
         {
-            q:"10. Who was the Headliner for Coachella 2022?",
+            q:"10. Who was thee Sunday Headliner for Coachella 2022?",
             o:["Lady GaGa", "Kanye", "Swedish House Mafia x The Weekend", "Travis Scott", "SnoopDogg"],
             a: 2,
             image: "./assets/img/shm-week.jpg"
@@ -128,7 +126,7 @@ var game = {
         //-add instructions and buttons to the game container
         //-create instructions for the game container
         var h3 = document.createElement("h3");
-        h3.textContent = "tests your knowledge about the Coachella Music & art Festival. You have 25 seconds to answer correctly. Questions are multiple choice and worth 1 point each. At the end we will tally your score. Good Luck! Press Start to begin! "
+        h3.textContent = "Test your knowledge about the Coachella Music & art Festival. You have 25 seconds to answer correctly. Questions are multiple choice and worth 1 point each. At the end we will tally your score. Good Luck! Press Start to begin! "
         gameContainer.appendChild(h3);
 
         //-create play game button
@@ -154,8 +152,8 @@ var game = {
         //to answer the Q before time runs out, create urgency
         var alertElm = document.createElement("h4");
         hurryAlert = setTimeout(function(){
-            alertElm.textContent = "Hurry, time is running out!"
-            alertElm.setAttribute("id", "hurry")
+            alertElm.textContent = "Hurry time is running out!"
+            alertElm.setAttribute("id", "flash-text")
         }, 10000);
         gameContainer.appendChild(alertElm);
 

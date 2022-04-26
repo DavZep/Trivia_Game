@@ -18,10 +18,9 @@ header {
 #coachella-title {
     padding-top: 10px;
     position: relative;
-    height: 100px;
-    width: 400px;
+    height: 75px;
+    width: 300px;
 }
-
 
 #game-container {
     float: left;
@@ -32,15 +31,16 @@ header {
 }
 
 #timer-wrap {
-    position: relative;
+    float: left;
     height: 65px;
     width: 90px;
-    margin-bottom: 10px;
-    padding-bottom: 10px;
     text-align: center;
     font-size: 50px;
     font-family: 'Pacifico', cursive;
     color: crimson;
+    background: rgba(164, 126, 158, 0.5);
+    border-radius: 20px;
+
 }
 
 h3,
@@ -55,7 +55,7 @@ h2 {
 
 }
 
-#hurry {
+#flash-text {
     animation: blinker 1s linear infinite;
 }
   
@@ -66,9 +66,13 @@ h2 {
   }
 
 h4 {
-    color: rgb(248, 175, 38);
+    text-indent: 10px;
+    width: 350px;
+    color: rgb(255, 0, 0, 0.363);
     font-family: 'Permanent Marker', cursive;
- 
+    background: rgba(248, 175, 38);
+    border-radius: 15px;
+
 }
 
 #start-game,
@@ -128,11 +132,9 @@ h4 {
         font-size: 50px;
     }
     
-
     #pics {
         height: 350px;
         width: 500px;
     }
-    
-    
+   
 }
