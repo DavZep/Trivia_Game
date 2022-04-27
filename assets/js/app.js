@@ -244,6 +244,7 @@ var game = {
         var answer = game.questions[game.currentQuestion].o[answerIndex]
 
         //create elemnt (placeholder)for correct, incorrect & timesup 
+        var h2 = document.createElement("h2");
         var h3 = document.createElement("h3");
         
         //create element with ID "pics for image & gif
@@ -260,8 +261,9 @@ var game = {
                 //add 1 to correct questions answerd 
                 game.correctQuestions++
                 
-                //write to H3 their choice/answer is correct
-                h3.textContent = `Correct!... ${answer} is the right answer.`
+                //write to h2 their choice/answer is correct
+                h2.textContent = `Correct!`
+                h3.textContent = `${answer} is the right answer.`
                 
                 //visual display pic or gif of the correct answer
                 image.src = game.questions[game.currentQuestion].image
@@ -276,8 +278,9 @@ var game = {
                 //add 1 to incorrect questions answerd 
                 game.incorrectQuestions++
                 
-                //writes to h3 their answer/choice is incorrect & what correct answer is
-                h3.textContent = `Incorrect! ${answer} was the right answer.`
+                //writes to h2 their answer/choice is incorrect & what correct answer is
+                h2.textContent = `Incorrect!`
+                h3.textContent = `${answer} was the right answer.`
                 
                 //visual display pic or gif of the correct answer
                 image.src = game.questions[game.currentQuestion].image;
@@ -291,7 +294,8 @@ var game = {
                 game.incorrectQuestions++
                 
                 //lets user know they didnt answer Q in time & what is the correct answer 
-                h3.textContent = `Times UP! ${answer} is the right answer.`
+                h2.textContent = `Times UP!`
+                h3.textContent = `${answer} is the right answer.`
                 
                 //visual display pic or gif of the correct answer
                 image.src = game.questions[game.currentQuestion].image;
@@ -302,8 +306,8 @@ var game = {
                 game.stopCountDown();
                 break;
         }
-        //append h3 and image from above
-        gameContainer.append(h3, image);
+        //append h2 and image from above
+        gameContainer.append(h2, h3, image);
 
         //checks if theres any questions left to display
         if (game.currentQuestion < game.questions.length - 1){
@@ -359,7 +363,7 @@ var game = {
         gameContainer.appendChild(gameCorrectStats);
 
         var missStats = document.createElement("h2");
-        missStats.textContent = `You missed ${game.incorrectQuestions} questions.`
+        missStats.textContent = `And missed ${game.incorrectQuestions} questions.`
         gameContainer.appendChild(missStats)
 
         var replayInfo = document.createElement("h2");
