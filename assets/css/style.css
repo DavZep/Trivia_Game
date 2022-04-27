@@ -59,7 +59,7 @@ h2 {
 
 #flash-text {
     animation: blinker 1s linear infinite;
-    border: solid rgb(255, 0, 0, 0.363) 1px;
+    border: solid rgb(248, 175, 38) 1px;
 
 }
   
@@ -74,9 +74,9 @@ h4 {
     position: relative;
     text-indent: 10px;
     width: 350px;
-    color: rgb(255, 0, 0, 0.363);
+    color: rgb(248, 175, 38);
     font-family: 'Permanent Marker', cursive;
-    background: rgba(248, 175, 38);
+    background: rgba(255, 0, 0);
     border-radius: 15px;
 
 }
