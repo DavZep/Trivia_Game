@@ -214,6 +214,10 @@ var game = {
         timerId = setInterval(game.timerDisplay, 1000);
 
     },
+    stopCountDown: function () {
+        countDown.pause();
+        countDown.currentTime = 0;
+    },
 
     //display correct, incorrect or out of time screens
     // 1 = correct,
@@ -251,6 +255,7 @@ var game = {
                 
                 //positive feedback sound 
                 correctSound.play();
+                game.stopCountDown();
 
                 // The break statement breaks out of a switch, stops execution of more code inside switch
                 break;
@@ -266,7 +271,7 @@ var game = {
                 
                 //negative feedback sound 
                 wrongSound.play();
-
+                game.stopCountDown();
                 break;
             default:
                 //add 1 to incorrect questions answerd 
@@ -281,6 +286,7 @@ var game = {
                 //2 negative feedback sounds incouraging user to answer Q b4 timeup
                 wrongSound.play();
                 booSound.play();
+                game.stopCountDown();
                 break;
         }
         //append h3 and image from above
@@ -295,9 +301,7 @@ var game = {
         }else {
             //if no more questions, delay and display ldisplay (gameOver, correct, incorrect stats)
             setTimeout(game.lDisplay, 4000)
-
         }
-
     },
 
     //manage and display question timer
@@ -356,8 +360,10 @@ var game = {
         game.qDisplay();
 
     },
-    
+      
 }
+
+
 
 //dynamic click event for all button created in javascript
 document.addEventListener("click", function(event){
