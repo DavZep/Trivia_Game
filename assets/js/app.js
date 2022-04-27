@@ -129,8 +129,21 @@ var game = {
         //-add instructions and buttons to the game container
         //-create instructions for the game container
         var h3 = document.createElement("h3");
-        h3.textContent = "Test your knowledge about the Coachella Music & art Festival. You have 25 seconds to answer correctly. Questions are multiple choice and worth 1 point each. At the end we will tally your score. Good Luck! Press Start to begin! "
+        h3.textContent = "Test your knowledge about the Coachella Music & art Festival."
         gameContainer.appendChild(h3);
+
+        var seconds = document.createElement("h3");
+        seconds.textContent = "- You have 25 seconds to answer correctly. "
+        gameContainer.appendChild(seconds);
+
+        var multipleChoice = document.createElement("h3");
+        multipleChoice.textContent = "- Questions are multiple choice and worth 1 point each."
+        gameContainer.appendChild(multipleChoice);
+
+        var pressStart = document.createElement("h3");
+        pressStart.textContent = "At the end we will tally your score. Good Luck! Press Start to begin!"
+        gameContainer.appendChild(pressStart);
+
 
         //-create play game button
         //add button to the game container
@@ -248,7 +261,7 @@ var game = {
                 game.correctQuestions++
                 
                 //write to H3 their choice/answer is correct
-                h3.textContent = `Correct! ${answer} is the right answer.`
+                h3.textContent = `Correct!... ${answer} is the right answer.`
                 
                 //visual display pic or gif of the correct answer
                 image.src = game.questions[game.currentQuestion].image
@@ -337,8 +350,21 @@ var game = {
 
         //display GamOver title with how many correct answers & incorrect answers
         var gameOverStats = document.createElement("h2");
-        gameOverStats.textContent = `Game Over! you got ${game.correctQuestions} correct answers and missed ${game.incorrectQuestions} questions. Press re-Play to try again!`
-        gameContainer.appendChild(gameOverStats)
+        gameOverStats.textContent = `Game Over!`
+        gameOverStats.setAttribute("id", "game-over");
+        gameContainer.appendChild(gameOverStats);
+
+        var gameCorrectStats = document.createElement("h2");
+        gameCorrectStats.textContent = `You got ${game.correctQuestions} correct answers`
+        gameContainer.appendChild(gameCorrectStats);
+
+        var missStats = document.createElement("h2");
+        missStats.textContent = `You missed ${game.incorrectQuestions} questions.`
+        gameContainer.appendChild(missStats)
+
+        var replayInfo = document.createElement("h2");
+        replayInfo.textContent = `Press re-Play to try again!`
+        gameContainer.appendChild(replayInfo)
 
         //create a button to play again
         var rePlay = document.createElement("button")
@@ -372,7 +398,6 @@ document.addEventListener("click", function(event){
         //display the question
         game.qDisplay();
         chellaSound.play();
-        crowdCheerSound.play();
     }
 
     //onclick of any question option button
