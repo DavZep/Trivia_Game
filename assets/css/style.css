@@ -32,17 +32,18 @@ header {
 
 #timer-wrap {
     margin: 0;
-    position: relative;
     float: left;
-    height: 65px;
-    width: 90px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 55px;
+    width: 75px;
     text-align: center;
     font-size: 50px;
     font-family: 'Pacifico', cursive;
     color: crimson;
     background: rgba(164, 126, 158, 0.8);
     border-radius: 20px;
-
 }
 
 h3,
@@ -50,6 +51,7 @@ h2 {
     padding: 5px;
     padding-left: 20px;
     padding-right: 20px;
+    text-indent: 5px;
     color: rgb(6, 6, 6);
     background: rgba(164, 126, 158, 0.8);
     border-radius: 20px;
@@ -57,9 +59,18 @@ h2 {
 
 }
 
+#timer-title {
+    margin: 0;
+    padding: 0;
+    text-indent: 10px;
+
+    font-family: 'Permanent Marker', cursive;
+
+}
+
 #flash-text {
     animation: blinker 1s linear infinite;
-    border: solid rgb(248, 175, 38) 1px;
+    border: solid rgb(255, 0, 0, 0.363) 1px;
 
 }
   
@@ -73,10 +84,10 @@ h4 {
     padding-top: 0;
     position: relative;
     text-indent: 10px;
-    width: 350px;
-    color: rgb(248, 175, 38);
+    width: 300px;
+    color: rgb(255, 0, 0, 0.363);
     font-family: 'Permanent Marker', cursive;
-    background: rgba(255, 0, 0);
+    background: rgba(248, 175, 38);
     border-radius: 15px;
 
 }
@@ -116,7 +127,7 @@ h4 {
     height: 40px;
 }
 
-@media (min-width: 800px) {
+@media (min-width: 674px) {
 
     #coachella-title {
         padding-top: 10px;
@@ -129,6 +140,10 @@ h4 {
     #game-container {
         float: left;
         padding-left: 50px;
+    }
+
+    h4 {
+        width: 350px;
     }
 
     .btn {
